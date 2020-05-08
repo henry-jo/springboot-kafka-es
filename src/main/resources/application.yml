@@ -15,3 +15,17 @@ spring:
         query:
           plan_cache_max_size: 32
           plan_parameter_metadata_max_size: 64
+  kafka:
+    bootstrap-servers: localhost:9092 # 카프카 서버정보
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer # kafka로 메세지를 전달할때 사용되는 key encoder class
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer # kafka로 메세지를 전달할때 사용되는 value encoder class
+    consumer:
+      group-id: topic-henry # consumer group id
+      max-poll-records: 1000 # consumer가 한번에 가져오는 max 메세지 갯수
+      enable-auto-commit: true # offset(=consumer가 어디까지 읽었는지) 저장 여부
+      auto-offset-reset: latest # offset에 오류가 있을 경우 어디서부터 진행할 것인지
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer # kafka에서 메세지를 받을 때 사용되는 key decoder class
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer # kafka에서 메세지를 받을 때 사용되는 value decoder class
+    template:
+      default-topic: topic-henry # kafka topic name
